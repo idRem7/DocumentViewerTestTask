@@ -11,7 +11,7 @@ import { documentViewerRouter } from './document-viewer.router';
 
 @NgModule({
     declarations: [AnnotationComponent, DocumentPageComponent, ScaleComponent, DocumentViewerPageComponent],
-    imports: [CommonModule, RouterModule.forChild(documentViewerRouter), hh],
+    imports: [CommonModule, RouterModule.forChild(documentViewerRouter)],
     providers: [
         {
             provide: DocumentViewerService,
