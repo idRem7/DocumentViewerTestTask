@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-document-viewer-page',
     templateUrl: './document-viewer-page.component.html',
     styleUrl: './document-viewer-page.component.scss',
+    standalone: false
 })
 export class DocumentViewerPageComponent implements OnInit {
     public id: number | null = null;
