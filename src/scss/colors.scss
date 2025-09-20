@@ -1,0 +1,114 @@
+// ----------- GreyScale colors --------------
+/* stylelint-disable */
+$greyscale-900: #000;
+$greyscale-800: #1d2023;
+$greyscale-700: #2c3135;
+$greyscale-600: #434a51;
+$greyscale-500: #626c77;
+$greyscale-400: #969fa8;
+$greyscale-300: #bbc1c7;
+$greyscale-200: #e2e5eb;
+$greyscale-100: #f2f3f7;
+$greyscale-0: #fff;
+
+// ---------- Text colors --------------------
+
+$light-text-headline: #000;
+$light-text-primary: #1d2023;
+$light-text-secondary: #626c77;
+$light-text-tertiary: #969fa8;
+$light-text-inverted: #fff;
+$light-text-positive: #12b23f;
+$light-text-negative: #eb4a13;
+$light-text-primary-link: #e30611;
+$light-text-secondary-link: #007cff;
+$dark-text-headline: #fff;
+$dark-text-primary: #e2e2e2;
+$dark-text-secondary: #969fa8;
+$dark-text-tertiary: #626c77;
+$dark-text-inverted: #000;
+$dark-text-positive: #74df8b;
+$dark-text-negative: #ffa080;
+$dark-text-primary-link: #e30611;
+$dark-text-secondary-link: #6ab3ff;
+
+// ----------- Background colors --------------------
+
+$light-background-primary: #fff;
+$light-background-primary-elevated: #fff;
+$light-background-modal: #fff;
+$light-background-stroke: rgb(188 195 208 / 50%);
+$light-background-secondary: #f2f3f7;
+$light-background-inverted: #1d2023;
+$light-background-overlay: rgb(29 32 35 / 45%);
+$light-background-hover: rgb(188 195 208 / 25%);
+$dark-background-primary: #262629;
+$dark-background-primary-elevated: #333336;
+$dark-background-modal: #333336;
+$dark-background-stroke: rgb(127 140 153 / 35%);
+$dark-background-secondary: rgb(98 108 119 / 25%);
+$dark-background-inverted: #fff;
+$dark-background-overlay: rgb(29 32 35 / 60%);
+$dark-background-hover: rgb(242 243 247 / 20%);
+
+// --------------- Icons colors -----------------
+
+$light-icons-primary: #000;
+$light-icons-secondary: #969fa8;
+$light-icons-tertiary: #bbc1c7;
+$dark-icons-primary: #fff;
+$dark-icons-secondary: #969fa8;
+$dark-icons-tertiary: #626c77;
+
+// --------------- Controls colors ---------------
+
+$light-controls-primary-active: #ff0032;
+$light-controls-secondary-active: #1d2023;
+$light-controls-tertiary-active: #f2f3f7;
+$light-controls-inactive: rgb(188 195 208 / 50%);
+$light-controls-alternative: #fff;
+$light-controls-active-tab-bar: #e30611;
+$light-controls-inactive-tab-bar: #aeb5bd;
+$dark-controls-primary-active: #df252e;
+$dark-controls-secondary-active: #fff;
+$dark-controls-tertiary-active: rgb(127 140 153 / 35%);
+$dark-controls-inactive: rgb(127 140 153 / 35%);
+$dark-controls-alternative: rgb(127 140 153 / 35%);
+$dark-controls-active-tab-bar: #fff;
+$dark-controls-inactive-tab-bar: #58616b;
+
+// ------------------ Accent colors ------------------
+
+$light-accent-active: #007cff;
+$light-accent-positive: #26cd58;
+$light-accent-warning: #fac031;
+$light-accent-negative: #f95721;
+$dark-accent-active: #45b6fc;
+$dark-accent-positive: #74df8b;
+$dark-accent-warning: #fad67d;
+$dark-accent-negative: #fa8a64;
+
+// ------------------ Custom colors -----------------
+
+$custom-white-3: #eceef4;
+$custom-white-2: #f3f3f3;
+$custom-white: #fbfbfb;
+$custom-lightblue: #cfe7ff;
+$custom-user-card: #f9f9f9;
+$custom-new-game: #ff5934;
+$custom-dropdown-border: #e6e6e6;
+$custom-dnd-input-area: #fff9f9;
+$custom-red-gradient: linear-gradient(225deg, #ff535c 0%, #e30611 100%);
+$custom-grey: #e1e1e9;
+$custom-premium-purple: #7c64ee;
+$custom-actions-overlay: rgb(0 0 0 / 56%);
+$custom-tooltip-list-background: linear-gradient(0deg, rgb(250 214 125 / 40%), rgb(250 214 125 / 40%)), #fff;
+
+// -------------- Shadows ---------------
+
+$light-grey-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+$grey-shadow: 0 8px 24px rgb(98 108 119 / 32%);
+$grey-shadow-2: 0 8px 32px rgb(98 108 119 / 32%);
+$login-form-shadow:
+    0px 0px 8px rgba(0, 0, 0, 0.08),
+    0px 40px 44px rgba(0, 0, 0, 0.1);

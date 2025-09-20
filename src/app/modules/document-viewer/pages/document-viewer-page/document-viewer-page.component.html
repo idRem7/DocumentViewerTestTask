@@ -1,1 +1,24 @@
-<p>document-viewer-page works!</p>
+<div class="wrap">
+    <page-header [title]="documentTitle$$"></page-header>
+
+    <main class="list">
+        @for (item of pages$$(); track item.number; let i = $index) {
+            <div class="item">
+                <document-page
+                    [page]="item"
+                    [scale$$]="scale$$"
+                    [annotations]="getAnnotationsForPage(i + 1)"
+                    (createAnnotation)="onCreateAnnotation($event)"
+                    (updateAnnotation)="onUpdateAnnotation($event)"
+                    (removeAnnotation)="onRemoveAnnotation($event)"
+                ></document-page>
+            </div>
+        }
+    </main>
+
+    <scale
+        class="scale"
+        [scale$$]="scale$$"
+        (scaleChange)="onScaleChange($event)"
+    ></scale>
+</div>

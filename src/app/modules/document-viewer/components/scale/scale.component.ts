@@ -1,11 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal, signal, } from '@angular/core';
 
 @Component({
-    selector: 'app-scale',
+    selector: 'scale',
     templateUrl: './scale.component.html',
     styleUrl: './scale.component.scss',
     standalone: false
 })
 export class ScaleComponent {
+    @Input()
+    public scale$$: Signal<number> = signal<number>(100);
 
+    @Input()
+    public scaleStep: number = 5;
+
+    @Input()
+    public maxScale: number = 150;
+
+    @Input()
+    public minScale: number = 50;
+
+    @Output()
+    public scaleChange: EventEmitter<number> = new EventEmitter<number>();
+
+    public increaseScale(): void {
+        this.scaleChange.emit(Math.min(this.maxScale, this.scale$$() + this.scaleStep));
+    }
+
+    public decreaseScale(): void {
+        this.scaleChange.emit(Math.max(this.minScale, this.scale$$() - this.scaleStep));
+    }
 }

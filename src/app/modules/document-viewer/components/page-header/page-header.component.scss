@@ -1,0 +1,32 @@
+@use 'colors' as *;
+@use 'typography' as *;
+@use 'fonts' as *;
+
+.wrap {
+    position: sticky;
+    z-index: 300;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    padding: 34px 60px;
+    border-bottom: 1px solid $greyscale-200;
+
+    background: $light-background-primary;
+    box-shadow: $light-grey-shadow;
+}
+
+.logo {
+    @include h3-medium;
+
+    font-family: $font-mts-wide;
+}
+
+.title {
+    @include h1-bold;
+}

@@ -1,0 +1,169 @@
+@use 'fonts';
+
+// ------- Font Weights ---------
+$font-weight-ultra-wide: 100;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+// -------- Header mixins ------------
+
+@mixin h1-black($color: unset) {
+    font-size: 32px;
+    font-weight: $font-weight-black;
+    line-height: 36px;
+    color: $color;
+}
+
+@mixin h1-bold($color: unset) {
+    font-size: 32px;
+    font-weight: $font-weight-bold;
+    line-height: 36px;
+    color: $color;
+}
+
+@mixin h1-medium($color: unset) {
+    font-size: 32px;
+    font-weight: $font-weight-medium;
+    line-height: 36px;
+    color: $color;
+}
+
+@mixin h1-regular($color: unset) {
+    font-size: 32px;
+    font-weight: $font-weight-regular;
+    line-height: 36px;
+    color: $color;
+}
+
+@mixin h2-black($color: unset) {
+    font-size: 24px;
+    font-weight: $font-weight-black;
+    line-height: 28px;
+    color: $color;
+}
+
+@mixin h2-bold($color: unset) {
+    font-size: 24px;
+    font-weight: $font-weight-bold;
+    line-height: 28px;
+    color: $color;
+}
+
+@mixin h2-medium($color: unset) {
+    font-size: 24px;
+    font-weight: $font-weight-medium;
+    line-height: 28px;
+    color: $color;
+}
+
+@mixin h2-regular($color: unset) {
+    font-size: 24px;
+    font-weight: $font-weight-regular;
+    line-height: 28px;
+    color: $color;
+}
+
+@mixin h3-bold($color: unset) {
+    font-size: 20px;
+    font-weight: $font-weight-bold;
+    line-height: 24px;
+    color: $color;
+}
+
+@mixin h3-medium($color: unset) {
+    font-size: 20px;
+    font-weight: $font-weight-medium;
+    line-height: 24px;
+    color: $color;
+}
+
+@mixin h3-regular($color: unset) {
+    font-size: 20px;
+    font-weight: $font-weight-regular;
+    line-height: 24px;
+    color: $color;
+}
+
+// ----------- Paragraph mixins -----------------
+
+@mixin p1-bold($color: unset) {
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    line-height: 24px;
+    color: $color;
+}
+
+@mixin p1-medium($color: unset) {
+    font-size: 16px;
+    font-weight: $font-weight-medium;
+    line-height: 24px;
+    color: $color;
+}
+
+@mixin p1-regular($color: unset) {
+    font-size: 16px;
+    font-weight: $font-weight-regular;
+    line-height: 24px;
+    color: $color;
+}
+
+@mixin p2-bold($color: unset) {
+    font-size: 14px;
+    font-weight: $font-weight-bold;
+    line-height: 20px;
+    color: $color;
+}
+
+@mixin p2-medium($color: unset) {
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    line-height: 20px;
+    color: $color;
+}
+
+@mixin p2-regular($color: unset) {
+    font-size: 14px;
+    font-weight: $font-weight-regular;
+    line-height: 20px;
+    color: $color;
+}
+
+@mixin p3-black($color: unset) {
+    font-size: 12px;
+    font-weight: $font-weight-black;
+    line-height: 16px;
+    color: $color;
+}
+
+@mixin p3-bold($color: unset) {
+    font-size: 12px;
+    font-weight: $font-weight-bold;
+    line-height: 16px;
+    color: $color;
+}
+
+@mixin p3-medium($color: unset) {
+    font-size: 12px;
+    font-weight: $font-weight-medium;
+    line-height: 16px;
+    color: $color;
+}
+
+@mixin p3-regular($color: unset) {
+    font-size: 12px;
+    font-weight: $font-weight-regular;
+    line-height: 16px;
+    color: $color;
+}
+
+// ---------- Custom mixins -----------------
+
+@mixin custom($size: 16px, $line-height: 24px, $weight: $font-weight-regular, $color: unset, $fontStyle: normal) {
+    font-size: $size;
+    font-weight: $weight;
+    font-style: inherit;
+    line-height: $line-height;
+    color: $color;
+}

@@ -1,0 +1,40 @@
+@use 'colors' as *;
+@use 'typography' as *;
+
+.annotation {
+    position: absolute;
+    padding: 4px 8px;
+    background: rgb(255 255 0 / 30%);
+    box-shadow: $light-grey-shadow;
+
+    @include p2-regular($light-text-primary);
+}
+
+.text[contenteditable] {
+    min-width: 40px;
+    outline: none;
+}
+
+.delete-btn {
+    cursor: pointer;
+
+    position: absolute;
+    top: -16px;
+    left: -16px;
+
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 10px;
+
+    color: $light-text-inverted;
+
+    background: $light-controls-secondary-active;
+
+    // Выравниваем символ (шрифт косячный)
+    &::after {
+        content: 'x';
+        transform: translateY(-1.5px);
+        display: inline-block;
+    }
+}

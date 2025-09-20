@@ -1,0 +1,45 @@
+@use 'colors' as *;
+@use 'typography' as *;
+@use 'fonts' as *;
+
+.wrap {
+    @include p1-medium($light-text-primary);
+
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+
+    width: 130px;
+    height: 40px;
+    border-radius: 30px;
+
+    background: $light-background-primary;
+    box-shadow: $grey-shadow-2;
+}
+
+.value{
+    width: 48px;
+    text-align: center;
+}
+
+.button {
+    cursor: pointer;
+
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 26px;
+
+    line-height: 1;
+    color: $light-text-inverted;
+
+    background: $light-controls-primary-active;
+
+    // У шрифта немного съезжает знак минуса, подкостылим его
+    &--minus::after {
+        content: '-';
+        transform: translateY(-1.5px);
+        display: inline-block;
+    }
+}

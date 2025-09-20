@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, first, map, Observable, of } from 'rxjs';
-import { Document } from '../models/document.model';
+import { DocumentModel } from '../models/document.model';
 import { UniversalResponse } from './document-viewer.service';
 
 const mockData = {
@@ -27,11 +27,20 @@ const mockData = {
             imageUrl: 'pages/5.png',
         },
     ],
+    annotations: [
+        {
+            id: 1,
+            text: 'Test annotation',
+            pageNumber: 1,
+            xPosition: 50,
+            yPosition: 50,
+        },
+    ]
 };
 
 @Injectable()
 export class DocumentViewerServiceStub {
-    public getDocument$(id: number): Observable<Document> {
+    public getDocument$(id: number): Observable<DocumentModel> {
         return of({
             data: { ...mockData, id },
             status: 200,
@@ -40,7 +49,7 @@ export class DocumentViewerServiceStub {
             first(),
             map((r: UniversalResponse) => {
                 if (r.data) {
-                    return new Document().fromJSON(r.data);
+                    return new DocumentModel().fromJSON(r.data);
                 }
 
                 throw new Error('Get request without response data');

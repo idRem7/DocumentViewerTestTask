@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
-import { Document } from '../models/document.model';
+import { DocumentModel } from '../models/document.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /**
@@ -22,14 +22,14 @@ export interface UniversalResponse {
 export class DocumentViewerService {
     constructor(private httpClient: HttpClient) {}
 
-    public getDocument$(id: number): Observable<Document> {
+    public getDocument$(id: number): Observable<DocumentModel> {
         const queryParams = new HttpParams().set('id', id.toString());
 
         return this.httpClient.get<UniversalResponse>(url, { params: queryParams }).pipe(
             first(),
             map((r: UniversalResponse) => {
                 if (r.data) {
-                    return new Document().fromJSON(r.data);
+                    return new DocumentModel().fromJSON(r.data);
                 }
 
                 throw new Error('Get request without response data');

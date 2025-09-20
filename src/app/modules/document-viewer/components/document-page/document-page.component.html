@@ -1,1 +1,20 @@
-<p>document-page works!</p>
+<div
+    class="wrap"
+    (dblclick)="onCreateAnnotation($event)"
+    [style.width.px]="pageSize$$().width"
+    [style.height.px]="pageSize$$().height"
+>
+    <img
+        [src]="link$$()"
+        [style.width.px]="pageSize$$().width"
+        [style.height.px]="pageSize$$().height"
+    />
+
+    @for (item of annotations; track item.id) {
+        <annotation
+            [annotation]="item"
+            (update)="onUpdateAnnotation($event)"
+            (remove)="onRemoveAnnotation($event)"
+        ></annotation>
+    }
+</div>

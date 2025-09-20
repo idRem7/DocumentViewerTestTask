@@ -1,10 +1,10 @@
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { catchError, EMPTY, Observable } from 'rxjs';
-import { Document } from '../models/document.model';
+import { DocumentModel } from '../models/document.model';
 import { DocumentViewerService } from '../services/document-viewer.service';
 import { inject } from '@angular/core';
 
-export const documentsResolver: ResolveFn<Document> = (routeSnapshot: ActivatedRouteSnapshot): Observable<Document> => {
+export const documentsResolver: ResolveFn<DocumentModel> = (routeSnapshot: ActivatedRouteSnapshot): Observable<DocumentModel> => {
     const documentViewerService: DocumentViewerService = inject(DocumentViewerService);
     const id = routeSnapshot.paramMap.get('id');
 

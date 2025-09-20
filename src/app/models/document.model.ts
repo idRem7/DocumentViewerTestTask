@@ -1,11 +1,11 @@
 import { jsonProperty, Serializable } from 'ts-serializable';
-import { Page } from './page.model';
-import { Annotation } from './annotation.model';
+import { PageModel } from './page.model';
+import { AnnotationModel } from './annotation.model';
 
 /**
  * Модель документа
  */
-export class Document extends Serializable {
+export class DocumentModel extends Serializable {
     /**
      * ИД документа
      *
@@ -24,12 +24,12 @@ export class Document extends Serializable {
     /**
      * Страницы
      */
-    @jsonProperty([Page])
-    public pages: Page[] = [];
+    @jsonProperty([PageModel])
+    public pages: PageModel[] = [];
 
     /**
      * Аннотации
      */
-    @jsonProperty([Annotation])
-    public annotations: Annotation[] = [];
+    @jsonProperty([AnnotationModel])
+    public annotations: AnnotationModel[] = [];
 }

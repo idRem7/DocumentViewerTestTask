@@ -1,0 +1,72 @@
+@font-face {
+    font-family: MTSWide;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-wide/MTSWide-Medium.woff') format('woff'),
+        url('../assets/fonts/mts-wide/MTSWide-Medium.svg') format('svg'),
+        url('../assets/fonts/mts-wide/MTSWide-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: MTSSans;
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-sans/MTSSans-UltraWide.svg') format('svg'),
+        url('../assets/fonts/mts-sans/MTSSans-UltraWide.woff') format('woff'),
+        url('../assets/fonts/mts-sans/MTSSans-UltraWide.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: MTSSans;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-sans/MTSSans-Regular.svg') format('svg'),
+        url('../assets/fonts/mts-sans/MTSSans-Regular.woff') format('woff'),
+        url('../assets/fonts/mts-sans/MTSSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: MTSSans;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-sans/MTSSans-Medium.svg') format('svg'),
+        url('../assets/fonts/mts-sans/MTSSans-Medium.woff') format('woff'),
+        url('../assets/fonts/mts-sans/MTSSans-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: MTSSans;
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-sans/MTSSans-Bold.svg') format('svg'),
+        url('../assets/fonts/mts-sans/MTSSans-Bold.woff') format('woff'),
+        url('../assets/fonts/mts-sans/MTSSans-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: MTSSans;
+    font-weight: 900;
+    font-display: swap;
+    src:
+        url('../assets/fonts/mts-sans/MTSSans-Black.woff') format('woff'),
+        url('../assets/fonts/mts-sans/MTSSans-Black.woff2') format('woff2'),
+        url('../assets/fonts/mts-sans/MTSSans-Black.svg') format('svg');
+}
+
+// Font Families
+$helvetica-medium: 'HelveticaNeue-Medium';
+$roboto-regular: 'Roboto-Regular', sans-serif;
+$roboto-medium: 'Roboto-Medium', sans-serif;
+$sf-pro-display-regular: 'Sf-Pro-Display-Regular';
+$font-mts: 'MTSSans', sans-serif;
+$font-mts-wide: 'MTSWide', 'MTSSans', sans-serif;

@@ -1,1 +1,16 @@
-<p>annotation works!</p>
+<div
+    class="annotation"
+    [ngStyle]="{ left: annotation.xPosition + 'px', top: annotation.yPosition + 'px' }"
+>
+    <span
+        class="text"
+        contenteditable="true"
+        [attr.data-placeholder]="'Введите текст...'"
+        (blur)="onTextChange($event)"
+        [innerText]="annotation.text || '\u200B'"
+    ></span>
+    <button
+        class="delete-btn"
+        (click)="delete()"
+    ></button>
+</div>

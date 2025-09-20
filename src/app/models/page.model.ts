@@ -4,7 +4,7 @@ import { jsonName, jsonProperty, Serializable } from 'ts-serializable';
 /**
  * Модель страницы
  */
-export class Page extends Serializable{
+export class PageModel extends Serializable{
     /**
      * Номер страницы
      */

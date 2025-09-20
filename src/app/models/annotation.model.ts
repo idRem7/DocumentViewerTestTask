@@ -3,7 +3,7 @@ import { jsonProperty, Serializable } from 'ts-serializable';
 /**
  * Модель аннотации
  */
-export class Annotation extends Serializable {
+export class AnnotationModel extends Serializable {
     /**
      * ИД
      */

@@ -1,1 +1,13 @@
-<p>scale works!</p>
+<div class="wrap">
+    <button
+        class="button button--minus"
+        (click)="decreaseScale()"
+    ></button>
+    <p class="value">{{ scale$$() }} %</p>
+    <button
+        class="button"
+        (click)="increaseScale()"
+    >
+        +
+    </button>
+</div>

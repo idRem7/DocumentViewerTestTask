@@ -8,9 +8,10 @@ import { DocumentViewerService } from '../../services/document-viewer.service';
 import { DocumentViewerServiceStub } from '../../services/document-viewer.service.stub';
 import { RouterModule } from '@angular/router';
 import { documentViewerRouter } from './document-viewer.router';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 @NgModule({
-    declarations: [AnnotationComponent, DocumentPageComponent, ScaleComponent, DocumentViewerPageComponent],
+    declarations: [AnnotationComponent, DocumentPageComponent, ScaleComponent, DocumentViewerPageComponent, PageHeaderComponent],
     imports: [CommonModule, RouterModule.forChild(documentViewerRouter)],
     providers: [
         {
@@ -19,4 +20,5 @@ import { documentViewerRouter } from './document-viewer.router';
         },
     ],
 })
-export class DocumentViewerModule {}
+export class DocumentViewerModule {
+}
