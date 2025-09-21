@@ -5,10 +5,11 @@ import { Directive, HostBinding, Input } from '@angular/core';
     standalone: true,
 })
 export class DropZoneDirective {
-    @Input() public dropZone: number = 0; // параметр директивы
+    @Input()
+    public dropZone: number = 0;
 
     @HostBinding('attr.data-drag-container')
-    public get dropZoneData() {
+    public get dropZoneData(): number {
         return this.dropZone;
     }
 }
