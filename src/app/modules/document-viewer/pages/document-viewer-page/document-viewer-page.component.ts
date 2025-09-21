@@ -50,7 +50,7 @@ export class DocumentViewerPageComponent implements OnInit {
             return;
         }
 
-        const existingIds = this.document$$()!.annotations.map((a) => a.id);
+        const existingIds: number[] = this.document$$()!.annotations.map((a: AnnotationModel) => a.id);
         annotation.id = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
 
         this.document$$.update((doc) => {

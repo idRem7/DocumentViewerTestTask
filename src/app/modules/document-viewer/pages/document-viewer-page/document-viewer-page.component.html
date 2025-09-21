@@ -1,9 +1,10 @@
 <div class="wrap">
-    <page-header
-        [title]="documentTitle$$"
-    ></page-header>
+    <page-header [title]="documentTitle$$"></page-header>
 
-    <main class="list" data-scroll-container>
+    <main
+        class="list"
+        data-scroll-container
+    >
         @for (item of pages$$(); track item.number; let i = $index) {
             <div class="item">
                 <document-page
@@ -24,6 +25,10 @@
         (scaleChange)="onScaleChange($event)"
     ></scale>
 
-    <button class="save-button" (click)="saveDocument()">Сохранить</button>
+    <button
+        class="save-button"
+        (click)="saveDocument()"
+    >
+        Сохранить
+    </button>
 </div>
-

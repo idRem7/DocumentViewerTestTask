@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, Output, Signal, signal, } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
 
 @Component({
     selector: 'scale',
     templateUrl: './scale.component.html',
     styleUrl: './scale.component.scss',
-    standalone: false
+    standalone: false,
 })
 export class ScaleComponent {
     @Input()
