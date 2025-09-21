@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
-import { DropEventDto } from '../models/drop-event.dto';
+import { DropEventDto } from '../../models/drop-event.dto';
 
 @Directive({
     selector: '[dragItem]',
@@ -8,13 +8,25 @@ import { DropEventDto } from '../models/drop-event.dto';
 export class DragItemDirective {
     private isDragging = false;
 
+    /**
+     * Запоминаем смещение курсора относительно
+     * элемента, который хотим перетащить, чтобы
+     * тащить его за то место, за которое схватили
+     * @private
+     */
     private shiftX = 0;
     private shiftY = 0;
 
+    /**
+     * Запоминаем стартовые координаты, для того чтобы
+     * вернуть элемент на исходную позицию, если дропнули
+     * мимо контейнера
+     *
+     * Координаты абсолютные в документе
+     * @private
+     */
     private startX: number = 0;
     private startY: number = 0;
-
-    private restrictedZones: HTMLElement[] = [];
 
     @Output()
     public dragItemEnd: EventEmitter<DropEventDto> = new EventEmitter();
@@ -35,8 +47,6 @@ export class DragItemDirective {
         this.shiftX = event.clientX - rect.left;
         this.shiftY = event.clientY - rect.top;
 
-        this.restrictedZones = Array.from(document.querySelectorAll('[data-drag-restricted]')) as HTMLElement[];
-
         document.addEventListener('mousemove', this.onMouseMove);
         document.addEventListener('mouseup', this.onMouseUp);
     }
@@ -46,6 +56,15 @@ export class DragItemDirective {
             return;
         }
 
+        /**
+         * Добываем основной элемент аннотации, так родительский хост имеет размер 0 на 0
+         * По идее так не должно быть, директива не должна знать об элементе, который ей
+         * нужно будет переместить. Из-за данного метода директива работает только с аннотациями
+         * или с похожими по структуре компонентами.
+         *
+         * Решение: разобраться с хостом компонента аннотации, чтобы он имел реальный размер
+         * или накинуть аттрибут комонента на div, как будто это директива
+         */
         const content = this.el.nativeElement.querySelector('.annotation') as HTMLElement;
 
         if (this.checkFullyInside(event)) {
@@ -60,24 +79,30 @@ export class DragItemDirective {
             return;
         }
 
-        let x = event.clientX - this.shiftX - parentRect.left;
-        let y = event.clientY - this.shiftY - parentRect.top;
+        /**
+         * Новые координаты относительно родительноского контейнера,
+         * поэтому вычитаем родительские координаты из абсолютных,
+         * ну и конечно же смещение (см в описании к св-ву)
+         */
+        let newPositionX = event.clientX - this.shiftX - parentRect.left;
+        let newPositionY = event.clientY - this.shiftY - parentRect.top;
 
         /**
          * Не даем драгать на шапку, жестко ограничиваем
          * 120 - высота шапки 100 + 20px на кнопку удаления
+         *
+         * По идее это тоже привязка к конкретностям страницы.
+         *
+         * Решение: сделать "запретные" зоны для драга с помощью директивы,
+         * но тут бы еще добавилось много математики, для вычисления пересечений
+         * с запретными зонами и логика создания "невидимых стен" для драга
          */
         if (event.clientY - this.shiftY <= 120) {
-            y = 120 - parentRect.top;
+            newPositionY = 120 - parentRect.top;
         }
 
-
-        for (const zone of this.restrictedZones) {
-            this.checkRestrictedCollision(event, zone);
-        }
-
-        this.el.nativeElement.style.left = `${x}px`;
-        this.el.nativeElement.style.top = `${y}px`;
+        this.el.nativeElement.style.left = `${newPositionX}px`;
+        this.el.nativeElement.style.top = `${newPositionY}px`;
     };
 
     public onMouseUp = (event: MouseEvent): void => {
@@ -98,9 +123,17 @@ export class DragItemDirective {
             const dropZoneRect = dropZone?.getBoundingClientRect();
 
             if (!pageNumber) {
+                /**
+                 * Такого скорее всего не будет, но кто знает
+                 */
                 throw new Error('Drop container without data!!!');
             }
 
+            /**
+             * Выбрасываем новые координаты относительно контейнера,
+             * даже если перенесли в другой контейнер, выбрасываем
+             * относительно нового контейнера
+             */
             this.dragItemEnd.emit({
                 pageNumber: +pageNumber,
                 xPosition: rect.x - dropZoneRect!.x,
@@ -137,17 +170,10 @@ export class DragItemDirective {
         );
     }
 
-    public checkRestrictedCollision(_event: MouseEvent, restrictedArea: HTMLElement) {
-        const content = this.el.nativeElement.querySelector('.annotation') as HTMLElement;
-        const elRect = content.getBoundingClientRect();
-
-        const restrictedRect = restrictedArea.getBoundingClientRect();
-
-        console.log('Restricted');
-        console.log(elRect);
-        console.log(restrictedRect);
-    }
-
+    /**
+     * Плавно возвращаем элемент на исходную позицию
+     * Используем магию анимации
+     */
     public returnToStartPosition(): void {
         const parentRect = this.el.nativeElement.parentElement?.getBoundingClientRect();
 
@@ -155,10 +181,13 @@ export class DragItemDirective {
         content.classList.remove('pulse-red');
 
         this.el.nativeElement.style.transition = 'left 0.3s ease, top 0.3s ease';
+
+        /**
+         * Конвертация абсотютных координат в относительные от родителя
+         */
         this.el.nativeElement.style.left = this.startX - parentRect!.x + 'px';
         this.el.nativeElement.style.top = this.startY - parentRect!.y + 'px';
 
-        // после завершения анимации убираем transition
         const cleanup = () => {
             this.el.nativeElement.style.transition = '';
             this.el.nativeElement.removeEventListener('transitionend', cleanup);
