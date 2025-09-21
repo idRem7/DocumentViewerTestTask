@@ -1,4 +1,5 @@
 @use 'colors' as *;
+@use 'typography' as *;
 
 .wrap {
     position: relative;
@@ -31,4 +32,23 @@
     z-index: 4;
     right: 60px;
     bottom: 60px;
+}
+
+.save-button {
+    cursor: pointer;
+
+    position: absolute;
+    z-index: 4;
+    bottom: 60px;
+    left: 60px;
+
+    width: 130px;
+    height: 40px;
+    border: none;
+    border-radius: 30px;
+
+    background: $light-controls-primary-active;
+    box-shadow: $grey-shadow-2;
+
+    @include p1-regular($light-text-inverted);
 }

@@ -35,7 +35,7 @@ const mockData = {
             xPosition: 50,
             yPosition: 50,
         },
-    ]
+    ],
 };
 
 @Injectable()
@@ -55,5 +55,11 @@ export class DocumentViewerServiceStub {
                 throw new Error('Get request without response data');
             }),
         );
+    }
+
+    public saveDocument(document: DocumentModel): Observable<null> {
+        console.log(document);
+
+        return of(null).pipe(first());
     }
 }

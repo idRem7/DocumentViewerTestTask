@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
 import { DocumentModel } from '../models/document.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Пример урла
@@ -23,9 +23,7 @@ export class DocumentViewerService {
     constructor(private httpClient: HttpClient) {}
 
     public getDocument$(id: number): Observable<DocumentModel> {
-        const queryParams = new HttpParams().set('id', id.toString());
-
-        return this.httpClient.get<UniversalResponse>(url, { params: queryParams }).pipe(
+        return this.httpClient.get<UniversalResponse>(`${url}/${id}`).pipe(
             first(),
             map((r: UniversalResponse) => {
                 if (r.data) {
@@ -35,5 +33,9 @@ export class DocumentViewerService {
                 throw new Error('Get request without response data');
             }),
         );
+    }
+
+    public saveDocument(document: DocumentModel): Observable<null> {
+        return this.httpClient.put<null>(`${url}/${document.id}`, JSON.stringify(document)).pipe(first());
     }
 }
