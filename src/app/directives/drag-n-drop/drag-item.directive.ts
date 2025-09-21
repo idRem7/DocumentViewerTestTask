@@ -79,6 +79,8 @@ export class DragItemDirective {
             return;
         }
 
+        this.scroll(event);
+
         /**
          * Новые координаты относительно родительноского контейнера,
          * поэтому вычитаем родительские координаты из абсолютных,
@@ -207,5 +209,38 @@ export class DragItemDirective {
         this.el.nativeElement.style.display = '';
 
         return elemBelow?.closest('[data-drag-container]') as HTMLElement | null;
+    }
+
+    /**
+     * Минимальная поддержка скролла при драге
+     * лучше, чем ничего :D
+     * @param event
+     *
+     * Скроллит по обеим осям, но останавливается при неподвижном курсоре
+     * Для скролла с неподвижным курсором нужно больше ресерчить
+     */
+    public scroll(event: MouseEvent): void {
+        const scrollParams = {
+            scrollMarginBottom: 50,
+            scrollMarginTop: 150,
+            scrollMarginX: 50,
+            scrollSpeed: 20,
+        };
+
+        const scrollContainer = document.querySelector('[data-scroll-container]');
+
+        if (scrollContainer) {
+            if (event.clientY < scrollParams.scrollMarginTop) {
+                scrollContainer.scrollBy(0, -scrollParams.scrollSpeed);
+            } else if (event.clientY > window.innerHeight - scrollParams.scrollMarginBottom) {
+                scrollContainer.scrollBy(0, scrollParams.scrollSpeed);
+            }
+
+            if (event.clientX < scrollParams.scrollMarginX) {
+                scrollContainer.scrollBy(-scrollParams.scrollSpeed, 0);
+            } else if (event.clientX > window.innerWidth - scrollParams.scrollMarginX) {
+                scrollContainer.scrollBy(scrollParams.scrollSpeed, 0);
+            }
+        }
     }
 }

@@ -9,8 +9,8 @@ import { DocumentViewerServiceStub } from '../../services/document-viewer.servic
 import { RouterModule } from '@angular/router';
 import { documentViewerRouter } from './document-viewer.router';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { DragItemDirective } from '../../directives/drag-item.directive';
-import { DropZoneDirective } from '../../directives/drop-zone.directive';
+import { DragItemDirective } from '../../directives/drag-n-drop/drag-item.directive';
+import { DropZoneDirective } from '../../directives/drag-n-drop/drop-zone.directive';
 
 @NgModule({
     declarations: [AnnotationComponent, DocumentPageComponent, ScaleComponent, DocumentViewerPageComponent, PageHeaderComponent],

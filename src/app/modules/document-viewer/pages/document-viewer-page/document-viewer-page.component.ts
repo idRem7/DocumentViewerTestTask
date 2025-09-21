@@ -1,5 +1,5 @@
 import { Component, computed, OnInit, Signal, signal, WritableSignal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentModel } from '../../../../models/document.model';
 import { PageModel } from '../../../../models/page.model';
 import { AnnotationModel } from '../../../../models/annotation.model';
@@ -20,10 +20,17 @@ export class DocumentViewerPageComponent implements OnInit {
 
     constructor(
         private readonly documentViewerService: DocumentViewerService,
+        private readonly router: Router,
         private readonly route: ActivatedRoute,
     ) {}
 
     public ngOnInit(): void {
+        const id = Number(this.route.snapshot.paramMap.get('id')) ?? null;
+
+        if (!id) {
+            this.router.navigate(['/']).then();
+        }
+
         this.document$$.set(this.route.snapshot.data['document']);
     }
 

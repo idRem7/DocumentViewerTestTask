@@ -3,7 +3,7 @@
         [title]="documentTitle$$"
     ></page-header>
 
-    <main class="list">
+    <main class="list" data-scroll-container>
         @for (item of pages$$(); track item.number; let i = $index) {
             <div class="item">
                 <document-page

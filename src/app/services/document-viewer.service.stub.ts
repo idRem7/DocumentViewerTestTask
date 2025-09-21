@@ -27,15 +27,15 @@ const mockData = {
             imageUrl: 'pages/5.png',
         },
     ],
-    annotations: [
-        {
-            id: 1,
-            text: 'Test annotation',
-            pageNumber: 1,
-            xPosition: 50,
-            yPosition: 50,
-        },
-    ],
+    // annotations: [
+    //     {
+    //         id: 1,
+    //         text: 'Test annotation',
+    //         pageNumber: 1,
+    //         xPosition: 50,
+    //         yPosition: 50,
+    //     },
+    // ],
 };
 
 @Injectable()

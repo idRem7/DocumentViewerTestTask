@@ -13,9 +13,6 @@ export const documentViewerRouter: Routes = [
     {
         path: '',
         component: DocumentViewerPageComponent,
-        resolve: {
-            document: documentsResolver,
-        },
     },
     {
         path: '**',
