@@ -1,11 +1,8 @@
-<div
-    class="annotation"
-    [ngStyle]="{ left: annotation.xPosition + 'px', top: annotation.yPosition + 'px' }"
->
+<div class="annotation">
     <span
         class="text"
         contenteditable="true"
-        [attr.data-placeholder]="'Введите текст...'"
+        (dblclick)="onTextEdit($event)"
         (blur)="onTextChange($event)"
         [innerText]="annotation.text || '\u200B'"
     ></span>

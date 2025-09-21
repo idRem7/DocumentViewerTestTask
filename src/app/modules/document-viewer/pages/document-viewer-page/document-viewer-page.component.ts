@@ -11,8 +11,6 @@ import { AnnotationModel } from '../../../../models/annotation.model';
     standalone: false,
 })
 export class DocumentViewerPageComponent implements OnInit {
-    // public id: number | null = null;
-
     public document$$: WritableSignal<DocumentModel | null> = signal<DocumentModel | null>(null);
     public documentTitle$$: Signal<string> = computed(() => this.document$$()?.name ?? 'Документ не найден');
     public pages$$: Signal<PageModel[]> = computed(() => this.document$$()?.pages ?? []);
@@ -22,8 +20,6 @@ export class DocumentViewerPageComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     public ngOnInit() {
-        // this.id = Number(this.route.snapshot.paramMap.get('id')) ?? null;
-
         this.document$$.set(this.route.snapshot.data['document']);
     }
 

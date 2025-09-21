@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, Signal, signal, WritableSignal } from '@angular/core';
 import { PageModel } from '../../../../models/page.model';
 import { AnnotationModel } from '../../../../models/annotation.model';
+import { DropEventDto } from '../../../../models/drop-event.dto';
 
 interface PageSize {
     width: number;
@@ -49,11 +50,13 @@ export class DocumentPageComponent {
     public createAnnotation: EventEmitter<AnnotationModel> = new EventEmitter<AnnotationModel>();
 
     public onCreateAnnotation(ev: MouseEvent) {
+        const rect = (ev.target as HTMLElement).getBoundingClientRect();
+
         this.createAnnotation.emit(
             new AnnotationModel().fromJSON({
                 text: 'Аннотация',
-                xPosition: ev.offsetX,
-                yPosition: ev.offsetY,
+                xPosition: (ev.clientX - rect.x) / (this.scale$$() / 100),
+                yPosition: (ev.clientY - rect.y) / (this.scale$$() / 100),
                 pageNumber: this.page$$().number,
             }),
         );
@@ -63,7 +66,25 @@ export class DocumentPageComponent {
         this.updateAnnotation.emit(annotation);
     }
 
+    public onMoveAnnotation(move: DropEventDto, annotation: AnnotationModel) {
+        this.updateAnnotation.emit(
+            new AnnotationModel().fromJSON({
+                ...annotation,
+                pageNumber: move.pageNumber,
+                xPosition: move.xPosition / (this.scale$$() / 100),
+                yPosition: move.yPosition / (this.scale$$() / 100),
+            }),
+        );
+    }
+
     public onRemoveAnnotation(id: number) {
         this.removeAnnotation.emit(id);
+    }
+
+    public getAnnotationPosition(annotation: AnnotationModel) {
+        return {
+            x: `${annotation.xPosition * (this.scale$$() / 100)}px`,
+            y: `${annotation.yPosition * (this.scale$$() / 100)}px`,
+        };
     }
 }

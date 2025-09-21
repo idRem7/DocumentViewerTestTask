@@ -1,4 +1,5 @@
 <div
+    [dropZone]="page$$().number"
     class="wrap"
     (dblclick)="onCreateAnnotation($event)"
     [style.width.px]="pageSize$$().width"
@@ -12,6 +13,12 @@
 
     @for (item of annotations; track item.id) {
         <annotation
+            dragItem
+            (dragItemEnd)="onMoveAnnotation($event, item)"
+            [ngStyle]="{
+                top: getAnnotationPosition(item).y,
+                left: getAnnotationPosition(item).x,
+            }"
             [annotation]="item"
             (update)="onUpdateAnnotation($event)"
             (remove)="onRemoveAnnotation($event)"

@@ -17,7 +17,36 @@ export class AnnotationComponent {
     @Output()
     public update: EventEmitter<AnnotationModel> = new EventEmitter<AnnotationModel>();
 
-    onTextChange(event: Event) {
+    public onTextEdit(event: Event) {
+        /**
+         * Предотвращаем всплытие, так как на двойной клик
+         * уже привязана операция создания аннотации
+         */
+        event.stopPropagation();
+
+        /**
+         * Двойной клик не работает так, как одинарный
+         * поэтому фокусим вручную
+         */
+        const target = event.target as HTMLElement;
+        target.focus();
+
+        /**
+         * При фокусе через двойной клик курсор становится вначале
+         * это очень неудобно, отправляем его в конец
+         */
+        const range = document.createRange();
+        range.selectNodeContents(target);
+        range.collapse(false);
+
+        const selection = window.getSelection();
+        if (selection) {
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    public onTextChange(event: Event) {
         const text = (event.target as HTMLElement).innerText;
 
         /**
@@ -31,10 +60,12 @@ export class AnnotationComponent {
             return;
         }
 
-        this.update.emit(new AnnotationModel().fromJSON({
-            ...this.annotation,
-            text,
-        }));
+        this.update.emit(
+            new AnnotationModel().fromJSON({
+                ...this.annotation,
+                text,
+            }),
+        );
     }
 
     public delete() {
