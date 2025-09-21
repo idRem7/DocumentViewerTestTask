@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Signal, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentModel } from '../../../../models/document.model';
 import { PageModel } from '../../../../models/page.model';
@@ -10,6 +10,7 @@ import { DocumentViewerService } from '../../../../services/document-viewer.serv
     templateUrl: './document-viewer-page.component.html',
     styleUrl: './document-viewer-page.component.scss',
     standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentViewerPageComponent implements OnInit {
     public document$$: WritableSignal<DocumentModel | null> = signal<DocumentModel | null>(null);

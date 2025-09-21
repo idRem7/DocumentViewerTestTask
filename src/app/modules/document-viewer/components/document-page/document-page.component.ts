@@ -24,9 +24,11 @@ export class DocumentPageComponent {
 
     public page$$: WritableSignal<PageModel> = signal<PageModel>(new PageModel());
     public link$$: Signal<string> = computed(() => `assets/images/${this.page$$().url}`);
+
+    public scaleDecimal$$: Signal<number> = computed(() => this.scale$$() / 100);
     public pageSize$$: Signal<PageSize> = computed(() => ({
-        width: (this.baseWidth * this.scale$$()) / 100,
-        height: (this.baseHeight * this.scale$$()) / 100,
+        width: this.baseWidth * this.scaleDecimal$$(),
+        height: this.baseHeight * this.scaleDecimal$$(),
     }));
 
     @Input()
@@ -55,8 +57,8 @@ export class DocumentPageComponent {
         this.createAnnotation.emit(
             new AnnotationModel().fromJSON({
                 text: 'Аннотация',
-                xPosition: (ev.clientX - rect.x) / (this.scale$$() / 100),
-                yPosition: (ev.clientY - rect.y) / (this.scale$$() / 100),
+                xPosition: this.convertCoordToNaturalScale(ev.clientX - rect.x),
+                yPosition: this.convertCoordToNaturalScale(ev.clientY - rect.y),
                 pageNumber: this.page$$().number,
             }),
         );
@@ -71,8 +73,8 @@ export class DocumentPageComponent {
             new AnnotationModel().fromJSON({
                 ...annotation,
                 pageNumber: move.pageNumber,
-                xPosition: move.xPosition / (this.scale$$() / 100),
-                yPosition: move.yPosition / (this.scale$$() / 100),
+                xPosition: this.convertCoordToNaturalScale(move.xPosition),
+                yPosition: this.convertCoordToNaturalScale(move.yPosition),
             }),
         );
     }
@@ -83,8 +85,18 @@ export class DocumentPageComponent {
 
     public getAnnotationPosition(annotation: AnnotationModel) {
         return {
-            x: `${annotation.xPosition * (this.scale$$() / 100)}px`,
-            y: `${annotation.yPosition * (this.scale$$() / 100)}px`,
+            x: `${this.convertCoordToScale(annotation.xPosition)}px`,
+            y: `${this.convertCoordToScale(annotation.yPosition)}px`,
         };
     }
+
+    public convertCoordToNaturalScale(coord: number) {
+        return coord / this.scaleDecimal$$();
+    }
+
+    public convertCoordToScale(coord: number) {
+        return coord * this.scaleDecimal$$();
+    }
+
+    protected readonly PageModel = PageModel;
 }

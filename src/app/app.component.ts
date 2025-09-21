@@ -7,7 +7,6 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
     imports: [CommonModule, RouterOutlet, RouterLink],
     templateUrl: './app.component.html',
     standalone: true,
-    styleUrl: './app.component.scss',
 })
 export class AppComponent {
     constructor(public router: Router) {}

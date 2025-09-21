@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { AnnotationModel } from '../../../../models/annotation.model';
 
 @Component({
@@ -6,6 +6,7 @@ import { AnnotationModel } from '../../../../models/annotation.model';
     templateUrl: './annotation.component.html',
     styleUrl: './annotation.component.scss',
     standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnnotationComponent {
     @Input()
