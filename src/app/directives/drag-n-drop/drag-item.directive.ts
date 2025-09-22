@@ -244,6 +244,10 @@ export class DragItemDirective {
             scrollSpeed: 20,
         };
 
+        /**
+         * Повесил вручную атрибут для скролла, чтобы найти контейнер, который нужно скроллить
+         * По-хорошему тоже нужна директива
+         */
         const scrollContainer = document.querySelector('[data-scroll-container]');
 
         if (scrollContainer) {
