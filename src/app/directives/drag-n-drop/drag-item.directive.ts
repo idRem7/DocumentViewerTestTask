@@ -1,6 +1,10 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { DropEventDto } from '../../models/drop-event.dto';
 
+/**
+ * Директива для DnD, вешаем на компонент,
+ * который хотим двигать
+ */
 @Directive({
     selector: '[dragItem]',
     standalone: true,
@@ -27,6 +31,14 @@ export class DragItemDirective {
      */
     private startX: number = 0;
     private startY: number = 0;
+
+    /**
+     * Тут получаем имя класса, который подсвечивает ошибки
+     * Компоненты сами предоставят класс, директива не подстраивается
+     * под конкретные классы
+     */
+    @Input()
+    public dragErrorClassName: string = '';
 
     @Output()
     public dragItemEnd: EventEmitter<DropEventDto> = new EventEmitter();
@@ -57,20 +69,24 @@ export class DragItemDirective {
         }
 
         /**
-         * Добываем основной элемент аннотации, так родительский хост имеет размер 0 на 0
-         * По идее так не должно быть, директива не должна знать об элементе, который ей
-         * нужно будет переместить. Из-за данного метода директива работает только с аннотациями
-         * или с похожими по структуре компонентами.
+         * Добываем основной элемент из драг-компонента, по которому будем отслеживать попадание в блоки. Компоненты бывают разные и нужно по-разному отслеживть попадание.
          *
-         * Решение: разобраться с хостом компонента аннотации, чтобы он имел реальный размер
-         * или накинуть аттрибут комонента на div, как будто это директива
+         * Например у аннотации это текст, он должен быть в пределах страницы. А кнопка удаления может быть за пределами, поэтому текст аннотации помечаем директивой dragItemContent, чтобы можно было ориентироваться на этот элемент.
+         *
+         * Плюсы: данная директива не знает о реализации аннотации (или других компонентов), но предоставляет другую директиву, чтобы компоненты сами сказали
+         * по какому элементу нужно ориентироваться при позиционировании.
+         * Поэтому директиву можно применять к любому подобному компоненту,
+         * и самое главное не нужно адаптировать директиву под компоненты,
+         * потому что конкретика должна подстраиватсья под абстракции
+         *
+         * Минусы: доп код, доп директива (она тривиальная), но зато какая адаптивность!
          */
-        const content = this.el.nativeElement.querySelector('.annotation') as HTMLElement;
+        const content = this.el.nativeElement.querySelector('[data-drag-item-content]') as HTMLElement;
 
         if (this.checkFullyInside(event)) {
-            content.classList.remove('pulse-red');
+            content.classList.remove(this.dragErrorClassName);
         } else {
-            content.classList.add('pulse-red');
+            content.classList.add(this.dragErrorClassName);
         }
 
         const parentRect = this.el.nativeElement.parentElement?.getBoundingClientRect();
@@ -93,11 +109,12 @@ export class DragItemDirective {
          * Не даем драгать на шапку, жестко ограничиваем
          * 120 - высота шапки 100 + 20px на кнопку удаления
          *
-         * По идее это тоже привязка к конкретностям страницы.
+         * По идее это привязка к конкретностям страницы.
          *
          * Решение: сделать "запретные" зоны для драга с помощью директивы,
          * но тут бы еще добавилось много математики, для вычисления пересечений
-         * с запретными зонами и логика создания "невидимых стен" для драга
+         * с запретными зонами и логика создания "невидимых стен" для драга.
+         * Нужно больше времени и исследования.
          */
         if (event.clientY - this.shiftY <= 120) {
             newPositionY = 120 - parentRect.top;
@@ -154,7 +171,7 @@ export class DragItemDirective {
      * @param event
      */
     public checkFullyInside(event: MouseEvent): boolean {
-        const content = this.el.nativeElement.querySelector('.annotation') as HTMLElement;
+        const content = this.el.nativeElement.querySelector('[data-drag-item-content]') as HTMLElement;
         const dropZone = this.getDropZone(event);
 
         if (!dropZone) {
@@ -179,8 +196,8 @@ export class DragItemDirective {
     public returnToStartPosition(): void {
         const parentRect = this.el.nativeElement.parentElement?.getBoundingClientRect();
 
-        const content = this.el.nativeElement.querySelector('.annotation') as HTMLElement;
-        content.classList.remove('pulse-red');
+        const content = this.el.nativeElement.querySelector('[data-drag-item-content]') as HTMLElement;
+        content.classList.remove(this.dragErrorClassName);
 
         this.el.nativeElement.style.transition = 'left 0.3s ease, top 0.3s ease';
 
@@ -230,12 +247,18 @@ export class DragItemDirective {
         const scrollContainer = document.querySelector('[data-scroll-container]');
 
         if (scrollContainer) {
+            /**
+             * Скроллим по вертикали
+             */
             if (event.clientY < scrollParams.scrollMarginTop) {
                 scrollContainer.scrollBy(0, -scrollParams.scrollSpeed);
             } else if (event.clientY > window.innerHeight - scrollParams.scrollMarginBottom) {
                 scrollContainer.scrollBy(0, scrollParams.scrollSpeed);
             }
 
+            /**
+             * Скроллим по горизонтали
+             */
             if (event.clientX < scrollParams.scrollMarginX) {
                 scrollContainer.scrollBy(-scrollParams.scrollSpeed, 0);
             } else if (event.clientX > window.innerWidth - scrollParams.scrollMarginX) {

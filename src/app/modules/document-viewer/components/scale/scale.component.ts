@@ -20,6 +20,13 @@ export class ScaleComponent {
     @Input()
     public minScale: number = 50;
 
+    /**
+     * Выбрасываем новый масштаб в процентах
+     *
+     * Неплохо было бы сделать выбос и в десятичном формате,
+     * а то компоненту страницы приходится делать конвертацию
+     * в десятичный и пересчитывать координаты
+     */
     @Output()
     public scaleChange: EventEmitter<number> = new EventEmitter<number>();
 

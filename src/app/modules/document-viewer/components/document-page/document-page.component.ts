@@ -23,8 +23,8 @@ export class DocumentPageComponent {
     public readonly baseHeight = 1123;
 
     public page$$: WritableSignal<PageModel> = signal<PageModel>(new PageModel());
-    public link$$: Signal<string> = computed(() => `assets/images/${this.page$$().url}`);
 
+    public link$$: Signal<string> = computed(() => `assets/images/${this.page$$().url}`);
     public scaleDecimal$$: Signal<number> = computed(() => this.scale$$() / 100);
     public pageSize$$: Signal<PageSize> = computed(() => ({
         width: this.baseWidth * this.scaleDecimal$$(),
@@ -97,6 +97,4 @@ export class DocumentPageComponent {
     public convertCoordToScale(coord: number) {
         return coord * this.scaleDecimal$$();
     }
-
-    protected readonly PageModel = PageModel;
 }

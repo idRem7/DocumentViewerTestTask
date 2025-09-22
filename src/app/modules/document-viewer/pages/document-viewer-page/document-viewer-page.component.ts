@@ -27,12 +27,20 @@ export class DocumentViewerPageComponent implements OnInit {
 
     public ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id')) ?? null;
+        this.document$$.set(this.route.snapshot.data['document']);
 
-        if (!id) {
+        /**
+         * Если пришли по битой сслыке, то возвращаемся на главную.
+         *
+         * С точки зрения UX нужно показать юзеру ошибку, сказать о том,
+         * что случилось, и предоставить возможность перейти на главную.
+         *
+         * Но я не стал делать, потому что это второстепенное
+         * В продакшене конечно это критично
+         */
+        if (!id || this.document$$() === null) {
             this.router.navigate(['/']).then();
         }
-
-        this.document$$.set(this.route.snapshot.data['document']);
     }
 
     public onScaleChange(value: number): void {
@@ -51,9 +59,23 @@ export class DocumentViewerPageComponent implements OnInit {
             return;
         }
 
+        /**
+         * Нужно присвоить ид новой аннотации,
+         * по-хорошему это серверные дела, можно присвоить какой-то временный ид,
+         * чтобы отображение и операции работали нормально, а при сохранении
+         * уже снова получить аннотации с нормальными ключами
+         */
         const existingIds: number[] = this.document$$()!.annotations.map((a: AnnotationModel) => a.id);
         annotation.id = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
 
+        /**
+         * Все махинации с документом (которые по сути можно назвать редьюсерами)
+         * можно вынести в небольшой самописный стор и тут уже дергать ручки стора
+         *
+         * Тогда получится разделение обязанностей, стейтом уже будет управлять стор
+         * К тому же отдельный стор будет проще тестировать, для компонента
+         * нужно готовить провайдеры и TestBed
+         */
         this.document$$.update((doc) => {
             return new DocumentModel().fromJSON({
                 ...doc,

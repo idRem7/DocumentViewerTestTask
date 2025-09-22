@@ -14,6 +14,7 @@
     @for (item of annotations; track item.id) {
         <annotation
             dragItem
+            dragErrorClassName="pulse-red"
             (dragItemEnd)="onMoveAnnotation($event, item)"
             [ngStyle]="{
                 top: getAnnotationPosition(item).y,

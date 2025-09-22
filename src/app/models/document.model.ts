@@ -29,6 +29,7 @@ export class DocumentModel extends Serializable {
 
     /**
      * Аннотации
+     * Их не было в мок-json, но вдруг они прилетят с сервера?
      */
     @jsonProperty([AnnotationModel])
     public annotations: AnnotationModel[] = [];

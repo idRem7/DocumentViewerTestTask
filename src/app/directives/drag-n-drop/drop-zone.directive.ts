@@ -1,5 +1,8 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
+/**
+ * Днд-директива для контейнеров, в которые можем переместить
+ */
 @Directive({
     selector: '[dropZone]',
     standalone: true,

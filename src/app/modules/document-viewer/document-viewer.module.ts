@@ -11,10 +11,11 @@ import { documentViewerRouter } from './document-viewer.router';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { DragItemDirective } from '../../directives/drag-n-drop/drag-item.directive';
 import { DropZoneDirective } from '../../directives/drag-n-drop/drop-zone.directive';
+import { DragItemContentDirective } from '../../directives/drag-n-drop/drag-item-content.directive';
 
 @NgModule({
     declarations: [AnnotationComponent, DocumentPageComponent, ScaleComponent, DocumentViewerPageComponent, PageHeaderComponent],
-    imports: [CommonModule, RouterModule.forChild(documentViewerRouter), DragItemDirective, DropZoneDirective],
+    imports: [CommonModule, RouterModule.forChild(documentViewerRouter), DragItemDirective, DropZoneDirective, DragItemContentDirective],
     providers: [
         {
             provide: DocumentViewerService,
