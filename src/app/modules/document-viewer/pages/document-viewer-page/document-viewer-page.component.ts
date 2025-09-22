@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentModel } from '../../../../models/document.model';
-import { PageModel } from '../../../../models/page.model';
-import { AnnotationModel } from '../../../../models/annotation.model';
 import { DocumentViewerService } from '../../../../services/document-viewer.service';
+import { DocumentModel } from '../../../../models/document-viewer/document.model';
+import { AnnotationModel } from '../../../../models/document-viewer/annotation.model';
+import { PageModel } from '../../../../models/document-viewer/page.model';
 
 @Component({
     selector: 'app-document-viewer-page',

@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
 
+/**
+ * Данный компонент можно зашарить и вынести в ui-kit
+ */
 @Component({
     selector: 'scale',
     templateUrl: './scale.component.html',

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, Signal, signal, WritableSignal } from '@angular/core';
-import { PageModel } from '../../../../models/page.model';
-import { AnnotationModel } from '../../../../models/annotation.model';
-import { DropEventDto } from '../../../../models/drop-event.dto';
+import { PageModel } from '../../../../models/document-viewer/page.model';
+import { AnnotationModel } from '../../../../models/document-viewer/annotation.model';
+import { DropEventDto } from '../../../../models/document-viewer/drop-event.dto';
 
 interface PageSize {
     width: number;

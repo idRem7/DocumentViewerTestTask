@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AnnotationModel } from '../../../../models/annotation.model';
+import { AnnotationModel } from '../../../../models/document-viewer/annotation.model';
 
 @Component({
     selector: 'annotation',

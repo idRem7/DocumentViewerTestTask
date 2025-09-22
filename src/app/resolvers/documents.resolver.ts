@@ -1,8 +1,8 @@
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { catchError, EMPTY, Observable, of } from 'rxjs';
-import { DocumentModel } from '../models/document.model';
 import { DocumentViewerService } from '../services/document-viewer.service';
 import { inject } from '@angular/core';
+import { DocumentModel } from '../models/document-viewer/document.model';
 
 export const documentsResolver: ResolveFn<DocumentModel | null> = (
     routeSnapshot: ActivatedRouteSnapshot,

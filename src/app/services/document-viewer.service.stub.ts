@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, first, map, Observable, of } from 'rxjs';
-import { DocumentModel } from '../models/document.model';
 import { UniversalResponse } from './document-viewer.service';
+import { DocumentModel } from '../models/document-viewer/document.model';
 
 const mockData = {
     name: 'test doc',

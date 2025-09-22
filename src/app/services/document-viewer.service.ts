@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
-import { DocumentModel } from '../models/document.model';
 import { HttpClient } from '@angular/common/http';
+import { DocumentModel } from '../models/document-viewer/document.model';
 
 /**
  * Пример урла

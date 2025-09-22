@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { DropEventDto } from '../../models/drop-event.dto';
+import { DropEventDto } from '../../models/document-viewer/drop-event.dto';
 
 /**
  * Директива для DnD, вешаем на компонент,
