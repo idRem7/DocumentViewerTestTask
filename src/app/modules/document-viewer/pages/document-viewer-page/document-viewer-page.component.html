@@ -1,5 +1,5 @@
 <div class="wrap">
-    <page-header [title]="documentTitle$$"></page-header>
+    <page-header [title]="documentTitle$$()"></page-header>
 
     <main
         class="list"
@@ -9,7 +9,7 @@
             <div class="item">
                 <document-page
                     [page]="item"
-                    [scale$$]="scale$$"
+                    [scale]="scale$$()"
                     [annotations]="getAnnotationsForPage(i + 1)"
                     (createAnnotation)="onCreateAnnotation($event)"
                     (updateAnnotation)="onUpdateAnnotation($event)"
@@ -21,7 +21,7 @@
 
     <scale
         class="scale"
-        [scale$$]="scale$$"
+        [scale]="scale$$()"
         (scaleChange)="onScaleChange($event)"
     ></scale>
 

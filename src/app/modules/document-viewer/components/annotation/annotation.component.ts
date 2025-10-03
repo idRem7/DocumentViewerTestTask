@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '@angular/core';
 import { AnnotationModel } from '../../../../models/document-viewer/annotation.model';
 
 @Component({
@@ -9,14 +9,10 @@ import { AnnotationModel } from '../../../../models/document-viewer/annotation.m
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnnotationComponent {
-    @Input()
-    public annotation: AnnotationModel = new AnnotationModel();
+    public readonly annotation: InputSignal<AnnotationModel> = input.required();
 
-    @Output()
-    public remove: EventEmitter<number> = new EventEmitter<number>();
-
-    @Output()
-    public update: EventEmitter<AnnotationModel> = new EventEmitter<AnnotationModel>();
+    public readonly remove = output<number>();
+    public readonly update = output<AnnotationModel>();
 
     public onTextEdit(event: Event) {
         /**
@@ -70,6 +66,6 @@ export class AnnotationComponent {
     }
 
     public delete() {
-        this.remove.emit(this.annotation.id);
+        this.remove.emit(this.annotation().id);
     }
 }

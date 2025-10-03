@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Signal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
     selector: 'page-header',
@@ -8,5 +8,5 @@ import { ChangeDetectionStrategy, Component, Input, Signal, signal } from '@angu
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeaderComponent {
-    @Input() title: Signal<string> = signal('');
+    public readonly title: InputSignal<string> = input.required<string>();
 }

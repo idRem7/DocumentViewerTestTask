@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, Signal, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, InputSignal, output, OutputEmitterRef, Signal } from '@angular/core';
 import { PageModel } from '../../../../models/document-viewer/page.model';
 import { AnnotationModel } from '../../../../models/document-viewer/annotation.model';
 import { DropEventDto } from '../../../../models/document-viewer/drop-event.dto';
@@ -22,34 +22,20 @@ export class DocumentPageComponent {
     public readonly baseWidth = 794;
     public readonly baseHeight = 1123;
 
-    public page$$: WritableSignal<PageModel> = signal<PageModel>(new PageModel());
+    public readonly page: InputSignal<PageModel> = input.required<PageModel>();
+    public readonly annotations: InputSignal<AnnotationModel[]> = input.required<AnnotationModel[]>();
+    public readonly scale: InputSignal<number> = input<number>(100);
 
-    public link$$: Signal<string> = computed(() => `assets/images/${this.page$$().url}`);
-    public scaleDecimal$$: Signal<number> = computed(() => this.scale$$() / 100);
+    public readonly createAnnotation: OutputEmitterRef<AnnotationModel> = output<AnnotationModel>();
+    public readonly updateAnnotation: OutputEmitterRef<AnnotationModel> = output<AnnotationModel>();
+    public readonly removeAnnotation: OutputEmitterRef<number> = output<number>();
+
+    public link$$: Signal<string> = computed(() => `assets/images/${this.page().url}`);
+    public scaleDecimal$$: Signal<number> = computed(() => this.scale() / 100);
     public pageSize$$: Signal<PageSize> = computed(() => ({
         width: this.baseWidth * this.scaleDecimal$$(),
         height: this.baseHeight * this.scaleDecimal$$(),
     }));
-
-    @Input()
-    public set page(value: PageModel) {
-        this.page$$.set(value);
-    }
-
-    @Input()
-    public annotations: AnnotationModel[] = [];
-
-    @Input()
-    public scale$$: Signal<number> = signal<number>(100);
-
-    @Output()
-    public removeAnnotation: EventEmitter<number> = new EventEmitter<number>();
-
-    @Output()
-    public updateAnnotation: EventEmitter<AnnotationModel> = new EventEmitter<AnnotationModel>();
-
-    @Output()
-    public createAnnotation: EventEmitter<AnnotationModel> = new EventEmitter<AnnotationModel>();
 
     public onCreateAnnotation(ev: MouseEvent) {
         const rect = (ev.target as HTMLElement).getBoundingClientRect();
@@ -59,7 +45,7 @@ export class DocumentPageComponent {
                 text: 'Аннотация',
                 xPosition: this.convertCoordToNaturalScale(ev.clientX - rect.x),
                 yPosition: this.convertCoordToNaturalScale(ev.clientY - rect.y),
-                pageNumber: this.page$$().number,
+                pageNumber: this.page().number,
             }),
         );
     }

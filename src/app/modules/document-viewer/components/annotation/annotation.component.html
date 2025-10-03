@@ -7,7 +7,7 @@
         contenteditable="true"
         (dblclick)="onTextEdit($event)"
         (blur)="onTextChange($event)"
-        [innerText]="annotation.text || '\u200B'"
+        [innerText]="annotation().text || '\u200B'"
     ></span>
     <button
         class="delete-btn"

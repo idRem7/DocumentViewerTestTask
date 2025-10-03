@@ -1,5 +1,5 @@
 <div
-    [dropZone]="page$$().number"
+    [dropZone]="page().number"
     class="wrap"
     (dblclick)="onCreateAnnotation($event)"
     [style.width.px]="pageSize$$().width"
@@ -11,7 +11,7 @@
         [style.height.px]="pageSize$$().height"
     />
 
-    @for (item of annotations; track item.id) {
+    @for (item of annotations(); track item.id) {
         <annotation
             dragItem
             dragErrorClassName="pulse-red"

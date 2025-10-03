@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 
 /**
  * Данный компонент можно зашарить и вынести в ui-kit
@@ -11,17 +11,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScaleComponent {
-    @Input()
-    public scale$$: Signal<number> = signal<number>(100);
-
-    @Input()
-    public scaleStep: number = 5;
-
-    @Input()
-    public maxScale: number = 150;
-
-    @Input()
-    public minScale: number = 50;
+    public readonly scale: InputSignal<number> = input<number>(100);
+    public readonly scaleStep: InputSignal<number> = input<number>(5);
+    public readonly maxScale: InputSignal<number> = input<number>(150);
+    public readonly minScale: InputSignal<number> = input<number>(50);
 
     /**
      * Выбрасываем новый масштаб в процентах
@@ -30,14 +23,13 @@ export class ScaleComponent {
      * а то компоненту страницы приходится делать конвертацию
      * в десятичный и пересчитывать координаты
      */
-    @Output()
-    public scaleChange: EventEmitter<number> = new EventEmitter<number>();
+    public readonly scaleChange: OutputEmitterRef<number> = output<number>();
 
     public increaseScale(): void {
-        this.scaleChange.emit(Math.min(this.maxScale, this.scale$$() + this.scaleStep));
+        this.scaleChange.emit(Math.min(this.maxScale(), this.scale() + this.scaleStep()));
     }
 
     public decreaseScale(): void {
-        this.scaleChange.emit(Math.max(this.minScale, this.scale$$() - this.scaleStep));
+        this.scaleChange.emit(Math.max(this.minScale(), this.scale() - this.scaleStep()));
     }
 }
